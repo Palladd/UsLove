@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function RunningButton({
+function RunningButton({
   children = "Nie 😢",
   range = 60,
   className = "",
@@ -41,3 +41,5 @@ export default function RunningButton({
     </button>
   );
 }
+
+export default RunningButton;

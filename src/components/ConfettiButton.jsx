@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
-export default function ConfettiButton() {
+function ConfettiButton() {
   const containerRef = useRef(null);
 
   const confettiEmoji = (e) => {
@@ -23,8 +23,7 @@ export default function ConfettiButton() {
 
     const pickRandom = (items) =>
       items[Math.floor(Math.random() * items.length)];
-    const randomBetween = (min, max) =>
-      Math.random() * (max - min) + min;
+    const randomBetween = (min, max) => Math.random() * (max - min) + min;
 
     Array.from({ length: count }, () => {
       const span = document.createElement("span");
@@ -106,3 +105,5 @@ export default function ConfettiButton() {
     </div>
   );
 }
+
+export default ConfettiButton;
