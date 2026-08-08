@@ -13,6 +13,7 @@ export function App() {
   // All data for submit form
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+
   // Change status of slides
   const nextSlide = () => {
     setSlide((prev) => Math.min(prev + 1, lastSlide));
@@ -31,9 +32,8 @@ export function App() {
             <motion.div
               key="slide-0"
               initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }} //
-              transition={{ duration: 0.5 }}
+              animate={{ opacity: 1, transition: { duration: 2, delay: 0.5 } }}
+              exit={{ opacity: 0 }}
               className="absolute inset-0 flex flex-col items-center justify-center gap-8 z-10"
             >
               <h1 className="text-center text-5xl font-extrabold text-pink-700">
@@ -145,13 +145,6 @@ export function App() {
                   selectedValue={selectedCategory}
                   onChange={setSelectedCategory}
                 />
-
-                {/* Test, by sprawdzić czy wartość poprawnie wędruje do rodzica */}
-                {selectedCategory && (
-                  <p className="font-bold text-pink-700">
-                    Wybrano kategorię: {selectedCategory}
-                  </p>
-                )}
               </div>
               <button
                 className="group relative overflow-hidden px-8 py-4 rounded-2xl border-4 border-pink-400 bg-pink-100 text-pink-600 shadow-[6px_6px_0px_0px_#d62d81] text-lg font-extrabold hover:bg-pink-50 active:translate-y-1 transition-all cursor-pointer"
