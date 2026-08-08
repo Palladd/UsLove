@@ -1,154 +1,110 @@
 import { useState } from "react";
-
+import "./styles/app.css";
 import ConfettiButton from "./components/ConfettiButton";
 import RunningButton from "./components/RunningButton";
-
-const QUESTIONS = [
-  {
-    id: 1,
-    title: "Co chciałabyś zjeść?",
-    emoji: "🍕",
-    options: [
-      "Włoska pizza & pasta",
-      "Sushi",
-      "Burger & frytki",
-      "Lody i coś słodkiego",
-    ],
-  },
-  {
-    id: 2,
-    title: "Jaki klimat spotkania wolisz?",
-    emoji: "🎬",
-    options: [
-      "Kino + spacer",
-      "Piknik w parku",
-      "Kameralna kolacja",
-      "Gry planszowe & luźny klimat",
-    ],
-  },
-  {
-    id: 3,
-    title: "Kiedy masz czas?",
-    emoji: "📅",
-    options: [
-      "W ten weekend",
-      "W przyszłym tygodniu",
-      "Napisz do mnie, zgadamy się!",
-    ],
-  },
-];
+import DelayedText from "./components/DelayedText";
+import { motion, AnimatePresence } from "framer-motion"; // Zmiana 1: Import AnimatePresence
 
 export function App() {
-  const [step, setStep] = useState("WELCOME");
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [answers, setAnswers] = useState({});
+  const [slide, setSlide] = useState(0);
 
-  // Stan zapobiegający wielokrotnemu kliknięciu podczas trwania animacji
-  const [isStarting, setIsStarting] = useState(false);
-
-  const handleStartQuiz = () => {
-    if (isStarting) return;
-    setIsStarting(true);
-
-    // Opóźnienie pozwala na wystrzelenie konfetti ZANIM przycisk zniknie z ekranu
-    setTimeout(() => {
-      setStep("QUIZ");
-    }, 600);
+  // Change status of slide to the next one
+  const nextSlide = () => {
+    setSlide((prev) => prev + 1);
   };
 
-  const handleSelectAnswer = (answer) => {
-    const questionId = QUESTIONS[currentQuestionIndex].id;
-
-    setAnswers((prev) => ({ ...prev, [questionId]: answer }));
-
-    if (currentQuestionIndex < QUESTIONS.length - 1) {
-      setCurrentQuestionIndex((prev) => prev + 1);
-    } else {
-      setStep("SUCCESS");
-    }
+  // Change status of slide to the previous one
+  const previousSlide = () => {
+    setSlide((prev) => prev - 1);
   };
 
   return (
-    <main className="flex items-center justify-center h-screen bg-pink-300 p-12 overflow-hidden">
+    <main className="mainForBg flex items-center justify-center h-screen p-28 overflow-hidden">
       <div className="relative flex h-full w-full items-center justify-center overflow-hidden rounded-4xl border-[6px] border-pink-200 bg-pink-100 p-8 shadow-[10px_10px_0px_0px_#ec4899]">
-        {/* --- EKRAN 1: WYBÓR TAK / NIE --- */}
-        {step === "WELCOME" && (
-          <div className="flex flex-col items-center justify-center gap-8 z-10">
-            <h1 className="text-center text-3xl font-extrabold text-pink-700">
-              Czy pójdziesz ze mną na randkę? 🥺
-            </h1>
+        {/* Zmiana 2: Opakowanie slajdów w AnimatePresence z mode="wait" */}
+        <AnimatePresence mode="wait">
+          {slide === 0 && (
+            <motion.div
+              key="slide-0" // Zmiana 3: Unikalny klucz
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }} // Zmiana 4: Efekt fade out przy znikaniu
+              transition={{ duration: 0.5 }}
+              // Zmiana 5: Dodanie 'absolute inset-0', żeby slajdy idealnie na siebie nachodziły w kontenerze
+              className="absolute inset-0 flex flex-col items-center justify-center gap-8 z-10"
+            >
+              <h1 className="text-center text-5xl font-extrabold text-pink-700">
+                Karolino 🐙
+              </h1>
 
-            <div className="flex items-center justify-center gap-6">
-              <RunningButton>Nie 😜</RunningButton>
+              <button
+                className="group relative overflow-hidden px-8 py-4 rounded-2xl border-4 border-pink-400 bg-pink-100 text-pink-600 shadow-[6px_6px_0px_0px_#d62d81] text-lg font-extrabold hover:bg-pink-50 active:translate-y-1 transition-all cursor-pointer"
+                onClick={nextSlide}
+              >
+                <span className="relative z-10" id="slide-0-button">
+                  Tak Przemek?
+                </span>
+                <span className="stripe-overlay" aria-hidden="true" />
+              </button>
+            </motion.div>
+          )}
 
-              {/* Wrapper gwarantuje przechwycenie akcji bez modyfikowania samego przycisku */}
-              <div onClickCapture={handleStartQuiz} className="cursor-pointer">
-                <ConfettiButton />
-              </div>
-            </div>
-          </div>
-        )}
+          {slide === 1 && (
+            <motion.div
+              key="slide-1" // Zmiana 6: Drugi slajd też musi być motion.div z kluczem
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }} // Ten slajd też ładnie zniknie, jeśli wciśniesz "Wróć"
+              transition={{ duration: 0.5 }}
+              className="absolute inset-0 flex flex-col items-center justify-center gap-8 z-10"
+            >
+              <h1 className="text-center text-5xl font-extrabold text-pink-700">
+                Czy pójdziesz ze mną na randkę? 🥺
+              </h1>
 
-        {/* --- EKRAN 2: PYTANIA (QUIZ) --- */}
-        {step === "QUIZ" && (
-          <div className="flex flex-col items-center justify-center gap-6 text-center w-full max-w-md z-10">
-            <span className="font-mono text-sm font-bold text-pink-600 bg-pink-200 px-4 py-1 rounded-full border-2 border-pink-400 shadow-[2px_2px_0px_0px_#ec4899]">
-              Pytanie {currentQuestionIndex + 1} z {QUESTIONS.length}
-            </span>
-
-            <div className="flex flex-col items-center gap-2">
-              <span className="text-4xl">
-                {QUESTIONS[currentQuestionIndex].emoji}
-              </span>
-              <h2 className="text-2xl font-extrabold text-pink-800">
-                {QUESTIONS[currentQuestionIndex].title}
-              </h2>
-            </div>
-
-            <div className="flex flex-col gap-3 w-full mt-2">
-              {QUESTIONS[currentQuestionIndex].options.map((option) => (
-                <button
-                  key={option}
-                  onClick={() => handleSelectAnswer(option)}
-                  className="w-full px-6 py-3 font-bold text-pink-900 bg-white border-4 border-pink-300 rounded-2xl shadow-[4px_4px_0px_0px_#ec4899] hover:bg-pink-50 active:translate-y-1 transition-all cursor-pointer text-left flex items-center justify-between"
-                >
-                  <span>{option}</span>
-                  <span className="text-pink-400">➔</span>
+              <div className="flex items-center justify-center gap-6">
+                <RunningButton>nie.</RunningButton>
+                
+                <button className="cursor-pointer" onClick={nextSlide}>
+                  <ConfettiButton />
                 </button>
-              ))}
-            </div>
-          </div>
-        )}
+              </div>
 
-        {/* --- EKRAN 3: PODSUMOWANIE --- */}
-        {step === "SUCCESS" && (
-          <div className="flex flex-col items-center justify-center gap-6 text-center z-10">
-            <span className="text-6xl animate-bounce">🎉</span>
-            <h2 className="text-3xl font-extrabold text-pink-700">
-              Super! Jesteśmy umówieni! 💖
-            </h2>
-            <p className="text-pink-800 font-semibold text-lg max-w-sm">
-              Oto Twój idealny plan na spotkanie:
-            </p>
+              <button
+                className="text-sm font-bold text-pink-500 underline underline-offset-4 hover:text-pink-800 transition-colors cursor-pointer"
+                onClick={previousSlide}
+              >
+                Wróć
+              </button>
+            </motion.div>
+          )}
+          {slide === 2 && (
+            <motion.div
+              key="slide-2" // Zmiana 6: Trzeci slajd też musi być motion.div z kluczem
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }} // Ten slajd też ładnie zniknie, jeśli wciśniesz "Wróć"
+              transition={{ duration: 0.5 }}
+              className="absolute inset-0 flex flex-col items-center justify-center gap-8 z-10"
+            >
+              <h1 className="text-center text-5xl font-extrabold text-pink-700">
+                A więc wybierz datę która Ci odpowiada
+              </h1>
 
-            <div className="w-full bg-white border-4 border-pink-300 rounded-2xl p-4 shadow-[4px_4px_0px_0px_#ec4899] text-left flex flex-col gap-2">
-              {QUESTIONS.map((q) => (
-                <div key={q.id} className="text-sm">
-                  <span className="font-bold text-pink-600">
-                    {q.emoji} {q.title}:{" "}
-                  </span>
-                  <span className="font-extrabold text-pink-900">
-                    {answers[q.id]}
-                  </span>
-                </div>
-              ))}
-            </div>
+              <section>
 
-            <p className="text-xs text-pink-600 font-mono mt-2">
-              Napisz do mnie, żeby dopiąć szczegóły! ✨
-            </p>
-          </div>
-        )}
+                
+              </section>
+
+              <button
+                className="text-sm font-bold text-pink-500 underline underline-offset-4 hover:text-pink-800 transition-colors cursor-pointer"
+                onClick={previousSlide}
+              >
+                Wróć
+              </button>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </main>
   );
