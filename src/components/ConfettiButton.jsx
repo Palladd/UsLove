@@ -1,6 +1,6 @@
 import { useRef } from "react";
 
- function ConfettiButton() {
+function ConfettiButton({ className = "", onClick, type = "button" }) {
   const containerRef = useRef(null);
 
   const confettiEmoji = (e) => {
@@ -57,13 +57,18 @@ import { useRef } from "react";
         span.remove();
       }, 2200);
     });
+
+    if (onClick) {
+      onClick(e);
+    }
   };
 
   return (
     <div ref={containerRef} className="relative inline-block">
       <button
+        type={type}
         onClick={confettiEmoji}
-        className="group relative overflow-hidden px-8 py-4 rounded-2xl border-4 border-pink-400 bg-pink-100 text-pink-600 shadow-[6px_6px_0px_0px_#d62d81] text-lg font-extrabold hover:bg-pink-50 active:translate-y-1 transition-all cursor-pointer"
+        className={`group relative overflow-hidden rounded-2xl border-4 border-pink-400 bg-pink-100 px-8 py-4 text-lg font-extrabold text-pink-600 shadow-[6px_6px_0px_0px_#d62d81] transition-all hover:bg-pink-50 active:translate-y-1 cursor-pointer ${className}`}
       >
         <span className="relative z-10">TAK!</span>
         <span className="stripe-overlay" aria-hidden="true" />

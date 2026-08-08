@@ -1,6 +1,5 @@
 "use client"
 
-import * as React from "react"
 import { Combobox as ComboboxPrimitive } from "@base-ui/react"
 
 import { cn } from "@/lib/utils"
@@ -259,10 +258,6 @@ function ComboboxChipsInput({
   );
 }
 
-function useComboboxAnchor() {
-  return React.useRef(null);
-}
-
 export {
   Combobox,
   ComboboxInput,
@@ -279,5 +274,4 @@ export {
   ComboboxChipsInput,
   ComboboxTrigger,
   ComboboxValue,
-  useComboboxAnchor,
 }

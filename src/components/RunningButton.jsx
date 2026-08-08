@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 function RunningButton({
   children = "Nie 😢",
@@ -11,8 +11,7 @@ function RunningButton({
 }) {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const handleEscape = (e) => {
-    // Generowanie nowej losowej pozycji
+  const handleEscape = () => {
     const randomX = (Math.random() - 0.5) * range * 8;
     const randomY = (Math.random() - 0.5) * range * 8;
 
@@ -21,13 +20,14 @@ function RunningButton({
 
   return (
     <button
+      type="button"
       {...props}
       onMouseEnter={(e) => {
-        handleEscape(e);
+        handleEscape();
         if (onMouseEnter) onMouseEnter(e);
       }}
       onTouchStart={(e) => {
-        handleEscape(e);
+        handleEscape();
         if (onTouchStart) onTouchStart(e);
       }}
       style={{

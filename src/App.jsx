@@ -4,21 +4,22 @@ import ConfettiButton from "./components/ConfettiButton";
 import RunningButton from "./components/RunningButton";
 import { motion, AnimatePresence } from "framer-motion";
 import { Calendar } from "./components/ui/calendar";
-import ComboboxWithCheckbox from "./components/ComboboxMultiSel";
+import ComboboxCategory from "./components/ComboboxCategory";
 
 export function App() {
   const [slide, setSlide] = useState(0);
+  const lastSlide = 3;
 
   // All data for submit form
   const [selectedDate, setSelectedDate] = useState(null);
-
+  const [selectedCategory, setSelectedCategory] = useState("");
   // Change status of slides
   const nextSlide = () => {
-    setSlide((prev) => prev + 1);
+    setSlide((prev) => Math.min(prev + 1, lastSlide));
   };
 
   const previousSlide = () => {
-    setSlide((prev) => prev - 1);
+    setSlide((prev) => Math.max(prev - 1, 0));
   };
 
   return (
@@ -67,9 +68,7 @@ export function App() {
               <div className="flex items-center justify-center gap-6">
                 <RunningButton>nie.</RunningButton>
 
-                <button className="cursor-pointer" onClick={nextSlide}>
-                  <ConfettiButton />
-                </button>
+                <ConfettiButton onClick={nextSlide} />
               </div>
 
               <button
@@ -134,7 +133,26 @@ export function App() {
               transition={{ duration: 0.5 }}
               className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10"
             >
-              <ComboboxWithCheckbox />
+              <h1 className="text-center text-5xl font-extrabold text-pink-700">
+                Co najbardziej chcesz robić?
+              </h1>
+              <h4 className="text-center text-lg font-semibold text-pink-700">
+                Wybierz kategorię, która Cię interesuje
+              </h4>
+
+              <div className="flex justify-between items-center gap-4">
+                <ComboboxCategory
+                  selectedValue={selectedCategory}
+                  onChange={setSelectedCategory}
+                />
+
+                {/* Test, by sprawdzić czy wartość poprawnie wędruje do rodzica */}
+                {selectedCategory && (
+                  <p className="font-bold text-pink-700">
+                    Wybrano kategorię: {selectedCategory}
+                  </p>
+                )}
+              </div>
               <button
                 className="group relative overflow-hidden px-8 py-4 rounded-2xl border-4 border-pink-400 bg-pink-100 text-pink-600 shadow-[6px_6px_0px_0px_#d62d81] text-lg font-extrabold hover:bg-pink-50 active:translate-y-1 transition-all cursor-pointer"
                 onClick={nextSlide}

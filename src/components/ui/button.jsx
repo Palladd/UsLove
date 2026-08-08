@@ -1,4 +1,3 @@
-import * as React from "react"
 import { cva } from "class-variance-authority";
 import { Slot } from "radix-ui"
 
@@ -46,12 +45,14 @@ function Button({
   variant = "default",
   size = "default",
   asChild = false,
+  type = "button",
   ...props
 }) {
   const Comp = asChild ? Slot.Root : "button"
 
   return (
     <Comp
+      type={type}
       data-slot="button"
       data-variant={variant}
       data-size={size}
@@ -60,4 +61,4 @@ function Button({
   );
 }
 
-export { Button, buttonVariants }
+export { Button }

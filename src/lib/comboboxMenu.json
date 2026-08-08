@@ -1,5 +1,5 @@
 {
-  "Jedzenie": [
+  "🍽️ Jedzenie": [
     "🍔 Burger",
     "🍣 Sushi",
     "🍕 Pizza",
@@ -16,7 +16,7 @@
     "🍦 Lodziarnia",
     "🍰 Desery (gofry, naleśniki, ciasta)"
   ],
-  "Kawa i słodkości": [
+  "☕ Kawa i słodkości": [
     "☕ Kawiarnia",
     "🍵 Herbaciarnia",
     "🧋 Bubble tea",
@@ -24,7 +24,7 @@
     "🍨 Lody",
     "🍩 Pączki"
   ],
-  "Rozrywka": [
+  "🎉 Rozrywka": [
     "🎬 Kino",
     "🎳 Kręgle",
     "🎱 Bilard",
@@ -35,7 +35,7 @@
     "❓ Quiz pubowy",
     "🎭 Stand-up"
   ],
-  "Na świeżym powietrzu": [
+  "🌿 Na świeżym powietrzu": [
     "🚶 Spacer",
     "🧺 Piknik",
     "🌅 Zachód słońca",
@@ -46,7 +46,7 @@
     "🔭 Punkt widokowy",
     "🌺 Ogród botaniczny"
   ],
-  "Aktywność": [
+  "🏃 Aktywność": [
     "🚴 Rower",
     "🛼 Rolki",
     "🏊 Basen",
@@ -58,14 +58,14 @@
     "🏸 Badminton",
     "⛳ Minigolf"
   ],
-  "Kultura": [
+  "🏛️ Kultura": [
     "🏛️ Muzeum",
     "🖼️ Galeria sztuki",
     "🎭 Teatr",
     "🖌️ Wystawa",
     "🔭 Planetarium"
   ],
-  "W domu": [
+  "🏠 W domu": [
     "👩‍🍳 Gotowanie razem",
     "🧑‍🍳 Pieczenie",
     "🍿 Wieczór filmowy",
