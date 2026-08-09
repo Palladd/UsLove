@@ -13,6 +13,16 @@ export function App() {
   // All data for submit form
   const [selectedDate, setSelectedDate] = useState(null);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [hasAnimatedDateSelection, setHasAnimatedDateSelection] =
+    useState(false);
+
+  const handleDateSelect = (date) => {
+    setSelectedDate(date);
+
+    if (!hasAnimatedDateSelection && date) {
+      setHasAnimatedDateSelection(true);
+    }
+  };
 
   // Change status of slides
   const nextSlide = () => {
@@ -33,7 +43,7 @@ export function App() {
               key="slide-0"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1, transition: { duration: 2, delay: 0.5 } }}
-              exit={{ opacity: 0 }}
+              exit={{ opacity: 0, transition: { duration: 0.5 } }}
               className="absolute inset-0 flex flex-col items-center justify-center gap-8 z-10"
             >
               <h1 className="text-center text-5xl font-extrabold text-pink-700">
@@ -88,40 +98,42 @@ export function App() {
               transition={{ duration: 0.5 }}
               className="absolute inset-0 flex flex-col items-center justify-center gap-4 z-10"
             >
-              <h1 className="text-center text-5xl font-extrabold text-pink-700">
-                A więc wybierz datę która Ci odpowiada
-              </h1>
-              <motion.p
-                className="text-center text-lg font-bold text-pink-700"
-                key={selectedDate ? selectedDate.toString() : "empty"}
+              <motion.h1
+                className="text-center text-5xl font-extrabold text-pink-700"
+                key={hasAnimatedDateSelection ? "date-selected" : "empty"}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                transition={{ duration: 0.5 }}
+                transition={{ duration: 1.5 }}
               >
                 {selectedDate
-                  ? `A więc ta?: ${selectedDate.toLocaleDateString()}`
-                  : " hmmmmm..."}
-              </motion.p>
+                  ? `A więc ${selectedDate.toLocaleDateString()} o godzinie ${selectedDate.toLocaleTimeString(
+                      [],
+                      { hour: "2-digit", minute: "2-digit" },
+                    )}`
+                  : " Wybierz datę, która Ci odpowiada"}
+              </motion.h1>
               <section>
                 <Calendar
                   mode="single"
                   selected={selectedDate}
-                  onSelect={setSelectedDate}
+                  onSelect={handleDateSelect}
                 />
               </section>
 
-              <button
-                className="group relative overflow-hidden px-8 py-4 rounded-2xl border-4 border-pink-400 bg-pink-100 text-pink-600 shadow-[6px_6px_0px_0px_#d62d81] text-lg font-extrabold hover:bg-pink-50 active:translate-y-1 transition-all cursor-pointer"
-                onClick={nextSlide}
-              >
-                Dalej
-              </button>
-              <button
-                className="text-sm font-bold text-pink-500 underline underline-offset-4 hover:text-pink-800 transition-colors cursor-pointer"
-                onClick={previousSlide}
-              >
-                Wróć
-              </button>
+              <div className="flex justify-between items-center gap-4">
+                <button
+                  className="group relative overflow-hidden px-8 py-4 rounded-2xl border-4 border-rose-300 bg-rose-100 text-rose-700 shadow-[6px_6px_0px_0px_#e11d48] text-lg font-extrabold hover:bg-rose-200 active:translate-y-1 transition-all cursor-pointer"
+                  onClick={previousSlide}
+                >
+                  Wróć
+                </button>
+                <button
+                  className="group relative overflow-hidden px-8 py-4 rounded-2xl border-4 border-pink-400 bg-pink-100 text-pink-600 shadow-[6px_6px_0px_0px_#d62d81] text-lg font-extrabold hover:bg-pink-50 active:translate-y-1 transition-all cursor-pointer"
+                  onClick={nextSlide}
+                >
+                  Dalej
+                </button>
+              </div>
             </motion.div>
           )}
           {slide === 3 && (
@@ -137,7 +149,7 @@ export function App() {
                 Co najbardziej chcesz robić?
               </h1>
               <h4 className="text-center text-lg font-semibold text-pink-700">
-                Wybierz kategorię, która Cię interesuje
+                Wybierz to, co Cię najbardziej interesuje
               </h4>
 
               <div className="flex justify-between items-center gap-4">
@@ -146,18 +158,21 @@ export function App() {
                   onChange={setSelectedCategory}
                 />
               </div>
-              <button
-                className="group relative overflow-hidden px-8 py-4 rounded-2xl border-4 border-pink-400 bg-pink-100 text-pink-600 shadow-[6px_6px_0px_0px_#d62d81] text-lg font-extrabold hover:bg-pink-50 active:translate-y-1 transition-all cursor-pointer"
-                onClick={nextSlide}
-              >
-                Dalej
-              </button>
-              <button
-                className="text-sm font-bold text-pink-500 underline underline-offset-4 hover:text-pink-800 transition-colors cursor-pointer"
-                onClick={previousSlide}
-              >
-                Wróć
-              </button>
+
+              <div className="flex justify-between items-center gap-4">
+                <button
+                  className="group relative overflow-hidden px-8 py-4 rounded-2xl border-4 border-rose-300 bg-rose-100 text-rose-700 shadow-[6px_6px_0px_0px_#e11d48] text-lg font-extrabold hover:bg-rose-200 active:translate-y-1 transition-all cursor-pointer"
+                  onClick={previousSlide}
+                >
+                  Wróć
+                </button>
+                <button
+                  className="group relative overflow-hidden px-8 py-4 rounded-2xl border-4 border-pink-400 bg-pink-100 text-pink-600 shadow-[6px_6px_0px_0px_#d62d81] text-lg font-extrabold hover:bg-pink-50 active:translate-y-1 transition-all cursor-pointer"
+                  onClick={nextSlide}
+                >
+                  Dalej
+                </button>
+              </div>
             </motion.div>
           )}
         </AnimatePresence>
