@@ -1,0 +1,78 @@
+{
+  "🍽️ Jedzenie": [
+    "🍔 Burger",
+    "🍣 Sushi",
+    "🍕 Pizza",
+    "🍝 Kuchnia włoska",
+    "🥡 Kuchnia azjatycka",
+    "🥩 Steakhouse",
+    "🌮 Tacos / kuchnia meksykańska",
+    "🍜 Ramen",
+    "🥙 Kebab",
+    "🥟 Pierogi",
+    "🥐 Śniadanie na mieście",
+    "🥞 Brunch",
+    "☕ Kawiarnia",
+    "🍦 Lodziarnia",
+    "🍰 Desery (gofry, naleśniki, ciasta)"
+  ],
+  "☕ Kawa i słodkości": [
+    "☕ Kawiarnia",
+    "🍵 Herbaciarnia",
+    "🧋 Bubble tea",
+    "🧁 Cukiernia",
+    "🍨 Lody",
+    "🍩 Pączki"
+  ],
+  "🎉 Rozrywka": [
+    "🎬 Kino",
+    "🎳 Kręgle",
+    "🎱 Bilard",
+    "🧩 Escape room",
+    "🎤 Karaoke",
+    "🕹️ Arcade",
+    "🥽 VR",
+    "❓ Quiz pubowy",
+    "🎭 Stand-up"
+  ],
+  "🌿 Na świeżym powietrzu": [
+    "🚶 Spacer",
+    "🧺 Piknik",
+    "🌅 Zachód słońca",
+    "🏖️ Plaża",
+    "🏞️ Jezioro",
+    "🌳 Park",
+    "🐦 Rezerwat przyrody",
+    "🔭 Punkt widokowy",
+    "🌺 Ogród botaniczny"
+  ],
+  "🏃 Aktywność": [
+    "🚴 Rower",
+    "🛼 Rolki",
+    "🏊 Basen",
+    "🏋️ Siłownia",
+    "🧗 Ścianka wspinaczkowa",
+    "🏓 Padel",
+    "🎾 Tenis",
+    "👟 Squash",
+    "🏸 Badminton",
+    "⛳ Minigolf"
+  ],
+  "🏛️ Kultura": [
+    "🏛️ Muzeum",
+    "🖼️ Galeria sztuki",
+    "🎭 Teatr",
+    "🖌️ Wystawa",
+    "🔭 Planetarium"
+  ],
+  "🏠 W domu": [
+    "👩‍🍳 Gotowanie razem",
+    "🧑‍🍳 Pieczenie",
+    "🍿 Wieczór filmowy",
+    "🎲 Planszówki",
+    "🎮 Gry na konsoli",
+    "🧩 Puzzle",
+    "🍱 Degustacja przekąsek",
+    "🧖 Spa w domu"
+  ]
+}
