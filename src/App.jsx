@@ -27,7 +27,7 @@ export function App() {
     };
 
     try {
-      const response = await fetch("http://localhost:5001/submit", {
+      const response = await fetch("/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
